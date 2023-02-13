@@ -8,6 +8,7 @@ namespace MManejoPresupuesto.Controllers
     public class TiposCuentasController : Controller
     {
         private readonly string connectionString;
+        /* DataBase DeskTop */
 
         public TiposCuentasController(IConfiguration configuration)
         {
