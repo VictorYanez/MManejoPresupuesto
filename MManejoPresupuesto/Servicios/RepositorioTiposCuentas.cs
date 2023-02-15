@@ -6,7 +6,8 @@ namespace MManejoPresupuesto.Servicios
 {
     public interface IRepositorioTiposCuentas
     {
-        void Crear(TipoCuenta tipocuenta);
+        Task Crear(TipoCuenta tipocuenta);
+        Task<IEnumerable<TipoCuenta>> Obtener(int usuarioId);
     }
 
     public class RepositorioTiposCuentas : IRepositorioTiposCuentas
@@ -19,13 +20,21 @@ namespace MManejoPresupuesto.Servicios
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public void Crear(TipoCuenta tipocuenta)
+        public async Task Crear(TipoCuenta tipocuenta)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = connection.QuerySingle<int>($@"insert into TiposCuentas (Nombre, UsuarioId, Orden) 
+            var id = await connection.QuerySingleAsync<int>($@"insert into TiposCuentas (Nombre, UsuarioId, Orden) 
                                                     values (@Nombre, @UsuarioId, 0);
                                                     select SCOPE_IDENTITY();", tipocuenta);
             tipocuenta.Id = id;
+        }
+
+        public async Task<IEnumerable<TipoCuenta>> Obtener(int usuarioId) 
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<TipoCuenta>(@"select Id, Nombre, Orden From TiposCuentas
+                                                                Where usuarioId = @UsuarioId;", new { usuarioId });
+
         }
 
     }

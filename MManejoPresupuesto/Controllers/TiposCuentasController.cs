@@ -10,10 +10,19 @@ namespace MManejoPresupuesto.Controllers
     {
         private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
 
-        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas) 
+        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas)
         {
             this.repositorioTiposCuentas = repositorioTiposCuentas;
         }
+
+        public async Task<IActionResult> Index() 
+        {
+            var usuarioId = 1;
+            var tiposCuentas = await this.repositorioTiposCuentas.Obtener(usuarioId);
+            return View(tiposCuentas);
+
+        }
+
         public IActionResult Crear()
         {
 
@@ -21,7 +30,7 @@ namespace MManejoPresupuesto.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear(TipoCuenta tipoCuenta)
+        public async Task< IActionResult> Crear(TipoCuenta tipoCuenta)
         {
 
             if (!ModelState.IsValid)
@@ -30,8 +39,10 @@ namespace MManejoPresupuesto.Controllers
             }
 
             tipoCuenta.UsuarioId = 1;
-            repositorioTiposCuentas.Crear(tipoCuenta);
-            return View();
+            await repositorioTiposCuentas.Crear(tipoCuenta);
+
+            return RedirectToAction("Index");
+
         }
     }
 }
