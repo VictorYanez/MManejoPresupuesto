@@ -6,8 +6,15 @@ namespace MManejoPresupuesto.Servicios
 {
     public interface IRepositorioTiposCuentas
     {
+        Task Actualizar(TipoCuenta tipocuenta);
+
+        Task Borrar(int id);
+
         Task Crear(TipoCuenta tipocuenta);
+
         Task<IEnumerable<TipoCuenta>> Obtener(int usuarioId);
+
+        Task<TipoCuenta> ObtenerPorId(int id, int usuarioId);
     }
 
     public class RepositorioTiposCuentas : IRepositorioTiposCuentas
@@ -18,6 +25,10 @@ namespace MManejoPresupuesto.Servicios
         public RepositorioTiposCuentas(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+
+        public RepositorioTiposCuentas()
+        {
         }
 
         public async Task Crear(TipoCuenta tipocuenta)
@@ -37,5 +48,25 @@ namespace MManejoPresupuesto.Servicios
 
         }
 
+        public async Task Actualizar(TipoCuenta tipocuenta)
+        {
+            using var connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync($@"update tiposCuentas set Nombre = @Nombre where Id = @Id;", tipocuenta);
+        }
+
+        public async Task<TipoCuenta> ObtenerPorId(int id, int usuarioId)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<TipoCuenta>(@"select Id, Nombre,Orden 
+                                        from TiposCuentas where Id = @id AND UsuarioId = @usuarioId;", new { id, usuarioId });
+
+        }
+
+        public async Task Borrar(int id)
+        {
+            using var connection = new SqlConnection(connectionString);
+            await connection.ExecuteAsync(@"delete from TiposCuentas where Id = @id;", new { id });
+
+        }
     }
 }
