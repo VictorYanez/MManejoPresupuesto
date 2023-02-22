@@ -1,3 +1,7 @@
 ﻿#reordenable tr {
     cursor: move;
 }
+
+#sortable tr {
+    cursor: move;
+}

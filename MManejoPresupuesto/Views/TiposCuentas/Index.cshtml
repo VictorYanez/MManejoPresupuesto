@@ -19,7 +19,7 @@
      <tbody id="reordenable">
         @foreach (var tipoCuenta in Model)
         {
-            <tr>
+            <tr id="sortable">
                 <td>
                     <input type="hidden" value="@tipoCuenta.Id" class="ids" />
                     <a class="btn btn-primary" asp-action="Editar" asp-route-id="@tipoCuenta.Id">Editar</a>
@@ -39,14 +39,17 @@
       <script>
        
          const urlOrdenar = '@Url.Action("ordenar")';   
-  
-          $(function(){
-              $("#reordenable").sortable({
+
+            $(function(){
+             $("#reordenable").sortable({
                   stop: async function(e, ui){
                       await actualizarOrdenes();
-               });
-          }
+            });
 
+
+            $( function() {
+             $( "#sortable" ).sortable();
+            });
 
              async function actualizarOrdenes(){
                   const ids = obtenerIdsDeElementos();

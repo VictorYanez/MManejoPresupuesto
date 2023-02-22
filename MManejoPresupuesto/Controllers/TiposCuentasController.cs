@@ -114,10 +114,13 @@ namespace MManejoPresupuesto.Controllers
 
         }
 
+        /*
         [HttpPost]
-        public async Task<IActionResult> Ordenar([FromBody] int[] ids) 
+        public  Task<IActionResult> Ordenar([FromBody] int[] ids) 
         {
             return Ok();
         }
+
+        */
     }
 }
