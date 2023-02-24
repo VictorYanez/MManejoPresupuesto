@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jZ2VmhjwcDeH1ad3EDpZ5Bt06jPhbUmHLuOskKOTKsE=",
+  "Hash": "5CO4Ob+CGm4+K5r1ob0GJe8vyyZvit5Fh+p/cryuktk=",
   "Source": "MManejoPresupuesto",
   "BasePath": "_content/MManejoPresupuesto",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\custom.css"
+    },
+    {
+      "Identity": "C:\\Users\\victor.yanez\\source\\repos\\MManejoPresupuesto\\MManejoPresupuesto\\wwwroot\\css\\estilos.css",
+      "SourceId": "MManejoPresupuesto",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\victor.yanez\\source\\repos\\MManejoPresupuesto\\MManejoPresupuesto\\wwwroot\\",
+      "BasePath": "_content/MManejoPresupuesto",
+      "RelativePath": "css/estilos.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\estilos.css"
     },
     {
       "Identity": "C:\\Users\\victor.yanez\\source\\repos\\MManejoPresupuesto\\MManejoPresupuesto\\wwwroot\\css\\site.css",

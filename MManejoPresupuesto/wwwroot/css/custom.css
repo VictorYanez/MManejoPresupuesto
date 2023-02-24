@@ -1,7 +1,26 @@
 ﻿#reordenable tr {
     cursor: move;
+    cursor: pointer;
 }
 
-#sortable tr {
-    cursor: move;
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+    #sortable tr {
+        cursor: move;
+        cursor: pointer;
+    }
+
+#persona {
+    background: #fff;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
