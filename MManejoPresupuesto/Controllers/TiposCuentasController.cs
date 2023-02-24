@@ -119,6 +119,23 @@ namespace MManejoPresupuesto.Controllers
 
         public async Task<IActionResult> Ordenar([FromBody] int[] ids) 
         {
+
+            var usurioId = serviciosUsuarios.ObtenerUsuarioId();
+            var tiposCuentas = await repositorioTiposCuentas.Obtener(usurioId);
+            var idsTiposCuentas = tiposCuentas.Select(x => x.Id);
+
+            var idsTiposCuentasNoPertenecenAlUsuario = ids.Except(idsTiposCuentas).ToList();
+
+            if (idsTiposCuentasNoPertenecenAlUsuario.Count > 0)
+            {
+                return Forbid();
+            }
+
+            var tiposCuentasOrdenados = ids.Select((valor, indice)=> 
+                new TipoCuenta() { Id=valor, Orden = indice + 1 }).AsEnumerable();
+
+            await repositorioTiposCuentas.Ordenar(tiposCuentasOrdenados);
+
             return Ok();
         }
 

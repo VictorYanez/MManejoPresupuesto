@@ -46,7 +46,7 @@ namespace MManejoPresupuesto.Servicios
         {
             using var connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<TipoCuenta>(@"select Id, Nombre, Orden From TiposCuentas
-                                                                Where usuarioId = @UsuarioId;", new { usuarioId });
+                                                                Where usuarioId = @UsuarioId order by Orden;", new { usuarioId });
 
         }
 
