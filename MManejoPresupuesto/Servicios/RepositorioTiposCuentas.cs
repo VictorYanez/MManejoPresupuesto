@@ -75,9 +75,9 @@ namespace MManejoPresupuesto.Servicios
 
         public async Task  Ordenar(IEnumerable<TipoCuenta> tipoCuentasOrdenados)
         {
-            var query = "update TiposCuentas Set Orden = @Orden where Id = @Id;";
+            var query = "update TiposCuentas set Orden = @Orden  where Id = @Id;";
             using var connection = new SqlConnection(connectionString);
-            await connection.QueryAsync(query, tipoCuentasOrdenados);
+            await connection.ExecuteAsync(query, tipoCuentasOrdenados);
 
         }
     }
