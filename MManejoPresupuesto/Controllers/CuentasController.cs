@@ -7,24 +7,53 @@ namespace MManejoPresupuesto.Controllers
 {
     public class CuentasController : Controller
     {
-        private readonly IRepositorioTiposCuentas repositoriotiposCuentas;
+        private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
         private readonly IServiciosUsuarios serviciosUsuarios;
+        private readonly IRepositorioCuentas repositorioCuentas;
 
-        public CuentasController(IRepositorioTiposCuentas repositoriotiposCuentas, IServiciosUsuarios serviciosUsuarios)
+        public CuentasController(IRepositorioTiposCuentas repositorioTiposCuentas, IServiciosUsuarios serviciosUsuarios,
+                                    IRepositorioCuentas repositorioCuentas)
         {
-            this.repositoriotiposCuentas = repositoriotiposCuentas;
+            this.repositorioTiposCuentas = repositorioTiposCuentas;
             this.serviciosUsuarios = serviciosUsuarios;
-        }   
+            this.repositorioCuentas = repositorioCuentas;
+        }
         [HttpGet]
         public async Task<IActionResult> Crear()
         {
-            var usarioId = serviciosUsuarios.ObtenerUsuarioId();
-            var tiposCuentas = await repositoriotiposCuentas.Obtener(usarioId);
+            var usuarioId = serviciosUsuarios.ObtenerUsuarioId();
             var modelo = new CuentaCreacionViewModel();
-            modelo.TiposCuentas = tiposCuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
+            modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
+            return View(modelo);
 
-            return View(modelo);    
-                       
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Crear(CuentaCreacionViewModel cuenta)
+        {
+            var usuarioId = serviciosUsuarios.ObtenerUsuarioId();
+            var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(cuenta.TipoCuentaId, usuarioId);
+
+            if (tipoCuenta is null)
+            {
+                return RedirectToAction("No encontrado", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                cuenta.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
+                return View(cuenta);
+            }
+
+            await repositorioCuentas.Crear(cuenta);
+            return RedirectToAction("Index");
+
+        }
+
+        private async Task<IEnumerable<SelectListItem>> ObtenerTiposCuentas(int usuarioId)
+        {
+            var tiposCuentas = await repositorioTiposCuentas.Obtener(usuarioId);
+            return tiposCuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
         }
     }
 }
