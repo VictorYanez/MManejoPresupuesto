@@ -14,5 +14,6 @@ namespace MManejoPresupuesto.Models
         public decimal Balance { get; set; }
         [StringLength(maximumLength:500)]
         public string Descripcion { get; set; }
+        public String TipoCuenta { get; set; }
     }
 }
