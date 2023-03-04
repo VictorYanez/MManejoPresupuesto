@@ -9,7 +9,13 @@
 
     string ObtenerClaseBalance(decimal balance)
     {
-        return balance >= 0 ? "activo" : "pasivo";
+        var clases = "";
+        if (balance >= 0) 
+        clases = "activo";
+        else 
+        clases = "pasivo";
+        
+        return clases ;
     }
 }
 
@@ -51,15 +57,15 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="cabeceraUno">
                     @{
-                        var temp = tipoCuenta.TipoCuenta;
                         var id = tipoCuenta.TipoCuenta;    /*.Replace(" ", "")*/
                         var dataBSTarget = "#"+id;
                         var claseTipoCuenta = ObtenerClaseBalance(tipoCuenta.Balance);
                      }
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@dataBSTarget">
-                    <span class="me-3"></span>
-                    <span ><strong>@tipoCuenta.TipoCuenta</strong></span>
-                    <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>
+                    <span class="me-3">
+                        <span ><strong>@tipoCuenta.TipoCuenta</strong></span>
+                        <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>
+                    </span>
                     </button>
                 </h2>
                <div id="@id" class="accordion-collapse collapse show">
