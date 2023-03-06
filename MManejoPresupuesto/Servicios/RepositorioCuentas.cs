@@ -33,10 +33,12 @@ namespace MManejoPresupuesto.Servicios
         public async Task<IEnumerable<Cuenta>> Buscar(int usuarioId)
         {
             using var connection = new SqlConnection(conectionString);
-            var query = @"Select ct.id, ct.Nombre, balance, tc.Nombre from Cuentas ct
+            var query = @"Select ct.id, ct.Nombre, balance, tc.Nombre AS TipoCuenta 
+                            from Cuentas ct
                             INNER JOIN TiposCuentas tc ON ct.TipoCuentaId = tc.Id
                             where tc.UsuarioId = @UsuarioId Order by tc.Orden;";
-            return await connection.QueryAsync<Cuenta>(query, new { usuarioId});
+
+            return await connection.QueryAsync<Cuenta>(query, new { usuarioId });
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MManejoPresupuesto.Models
 {
-    public class IndiceCuentasViewModels
+    public class IndiceCuentasViewModels 
     {
         public String TipoCuenta { get; set; }
 

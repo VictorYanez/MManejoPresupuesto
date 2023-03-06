@@ -18,27 +18,31 @@ namespace MManejoPresupuesto.Controllers
             this.serviciosUsuarios = serviciosUsuarios;
             this.repositorioCuentas = repositorioCuentas;
         }
+        
         public async Task<IActionResult> Index() 
         {
             var UsuarioId = serviciosUsuarios.ObtenerUsuarioId();
             var cuentasConTipoCuenta = await repositorioCuentas.Buscar(UsuarioId);
 
-            var modelo = cuentasConTipoCuenta.GroupBy(x => x.TipoCuenta).Select(grupo => new IndiceCuentasViewModels
-            {
-                TipoCuenta = grupo.Key,
-                Cuentas = grupo.AsEnumerable()
-            }).ToList();
+            var modelo = cuentasConTipoCuenta
+                .GroupBy(x => x.TipoCuenta)
+                .Select(grupo => new IndiceCuentasViewModels
+                {
+                    TipoCuenta = grupo.Key,
+                    Cuentas = grupo.AsEnumerable()
+                }).ToList();
 
             return View(modelo);
         }
             
-
         [HttpGet]
         public async Task<IActionResult> Crear()
         {
             var usuarioId = serviciosUsuarios.ObtenerUsuarioId();
             var modelo = new CuentaCreacionViewModel();
+
             modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
+
             return View(modelo);
 
         }
