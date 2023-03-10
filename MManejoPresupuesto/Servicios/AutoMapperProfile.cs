@@ -10,5 +10,4 @@ namespace MManejoPresupuesto.Servicios
             CreateMap<Cuenta, CuentaCreacionViewModel>();
         }
     }
-    }
 }

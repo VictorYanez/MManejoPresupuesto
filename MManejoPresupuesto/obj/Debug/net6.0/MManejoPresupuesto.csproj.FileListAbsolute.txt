@@ -148,3 +148,5 @@ C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Deb
 C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
