@@ -150,3 +150,10 @@ C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Deb
 C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\ClosedXML.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\ExcelNumberFormat.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\Irony.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\SixLabors.Fonts.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\System.IO.Packaging.dll
+C:\Users\victor.yanez\source\repos\MManejoPresupuesto\MManejoPresupuesto\bin\Debug\net6.0\XLParser.dll
