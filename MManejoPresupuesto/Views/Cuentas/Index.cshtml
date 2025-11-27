@@ -5,7 +5,7 @@
 
     string FormatearBalance(decimal balance)
     {
-        return (balance).ToString("N");
+        return Math.Abs(balance).ToString("N");
     }
 
     string ObtenerClaseBalance(decimal balance)
@@ -15,7 +15,6 @@
         if (balance >= 0)
          clases = "activo"; 
 
-   
         return clases;
     }
 }
@@ -26,7 +25,7 @@
 <div class="contenedor-totales mb-3">
     <div>
         <div>
-            <strong>Ativos</strong>
+            <strong>Activos</strong>
         </div>
         <div class="activo">
             @Model.Where(x=>x.Balance>0).Sum(x=>x.Balance)
@@ -65,7 +64,8 @@
                         var claseTipoCuenta = ObtenerClaseBalance(tipoCuenta.Balance);
                     }
 
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@dataBSTarget">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="@dataBSTarget">
                         <span class="me-3">
                             <span><strong>@tipoCuenta.TipoCuenta</strong></span>
                             <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>

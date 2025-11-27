@@ -25,7 +25,8 @@ namespace MManejoPresupuesto.Servicios
         public async Task Crear(Cuenta cuenta)
         {
             using var connection = new SqlConnection(conectionString);
-            var query = @"insert into Cuentas (Nombre, TipoCuentaId, Balance, Descripcion) values (@Nombre, @TipoCuentaId, @Balance, @Descripcion); " +
+            var query = @"insert into Cuentas (Nombre, TipoCuentaId, Balance, Descripcion) 
+                        values (@Nombre, @TipoCuentaId, @Balance, @Descripcion); " +
                                 "Select SCOPE_IDENTITY();";
 
             var id = await connection.QuerySingleAsync<int>(query, cuenta);

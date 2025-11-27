@@ -42,9 +42,11 @@ namespace MManejoPresupuesto.Controllers
         public async Task<IActionResult> Crear()
         {
             var usuarioId = serviciosUsuarios.ObtenerUsuarioId();
+            var tiposCuentas = await repositorioTiposCuentas.Obtener(usuarioId);
             var modelo = new CuentaCreacionViewModel();
 
-            modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
+            modelo.TiposCuentas = tiposCuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
+            //modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
 
             return View(modelo);
 
