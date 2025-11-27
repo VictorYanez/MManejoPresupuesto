@@ -9,11 +9,14 @@ namespace MManejoPresupuesto.Controllers
     {
         private readonly IServiciosUsuarios servicioUsuarios;
         private readonly IRepositorioCuentas repositorioCuentas;
+        private readonly IRepositorioTransacciones repositorioTransacciones;
 
-        public TransaccionesController(IServiciosUsuarios servicioUsuarios, IRepositorioCuentas repositorioCuentas)
+        public TransaccionesController(IServiciosUsuarios servicioUsuarios, 
+            IRepositorioCuentas repositorioCuentas, IRepositorioTransacciones repositorioTransacciones)
         {
             this.servicioUsuarios = servicioUsuarios;
             this.repositorioCuentas = repositorioCuentas;
+            this.repositorioTransacciones = repositorioTransacciones;
         }
 
         public async Task<IActionResult> Crear() 
@@ -57,20 +60,30 @@ namespace MManejoPresupuesto.Controllers
         }
 
 
-        /*
+    
         public async Task<JsonResult> ObtenerTransaccionesCalendario(DateTime start, DateTime end) 
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
-            var transacciones = await RepositorioTransacciones.ObtenerPorUsuarioId(
+
+            var transacciones = await repositorioTransacciones.ObtenerPorUsuarioId(
                 new ParametroObtenerTransaccionesPorUsuario
                 {
-                    usuarioId = usuarioId,
+                    UsuarioId = usuarioId,
                     FechaInicio = start,
-                    FechaOuticio = end
+                    FechaFin = end
                 });
 
+            var eventosCalendario = transacciones.Select(transaccion => new EventoCalendario()
+            {
+                Title = transaccion.Monto.ToString("N"),
+                Start = transaccion.FechaTransaccion.ToString("yyyy-MM-dd"),
+                End = transaccion.FechaTransaccion.ToString("yyyy-MM-dd"),
+                //Color = (transaccion.TipoOperacionId == TipoOperacion.Gasto)? "Red" : null
+            });
+
+            return Json(eventosCalendario);
        
         }
-         */
+
     }
 }
