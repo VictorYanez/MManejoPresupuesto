@@ -7,11 +7,11 @@ namespace MManejoPresupuesto.Controllers
 {
     public class TransaccionesController : Controller
     {
-        private readonly IServiciosUsuarios servicioUsuarios;
+        private readonly IServicioUsuarios servicioUsuarios;
         private readonly IRepositorioCuentas repositorioCuentas;
         private readonly IRepositorioTransacciones repositorioTransacciones;
 
-        public TransaccionesController(IServiciosUsuarios servicioUsuarios, 
+        public TransaccionesController(IServicioUsuarios servicioUsuarios, 
             IRepositorioCuentas repositorioCuentas, IRepositorioTransacciones repositorioTransacciones)
         {
             this.servicioUsuarios = servicioUsuarios;

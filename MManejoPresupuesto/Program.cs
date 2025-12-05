@@ -5,9 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRepositorioTiposCuentas, RepositorioTiposCuentas>();
-builder.Services.AddTransient <IServiciosUsuarios, ServicioUsuarios>();
+builder.Services.AddTransient <IServicioUsuarios, ServicioUsuarios>();
 builder.Services.AddTransient<IRepositorioCuentas, RepositorioCuentas>();
 builder.Services.AddTransient<IRepositorioTransacciones, RepositorioTransacciones>();
+builder.Services.AddTransient<IRepositorioCategorias, RepositorioCategorias>();
+
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();

@@ -6,7 +6,8 @@ namespace MManejoPresupuesto.Servicios
 {
 
     public interface IRepositorioCategorias
-        {
+    {
+        Task Crear(Categoria categoria);
     }
     public class RepositorioCategorias : IRepositorioCategorias
     {
@@ -19,13 +20,12 @@ namespace MManejoPresupuesto.Servicios
         public async Task Crear(Categoria categoria)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>(@"
+            var query = @"
                                         INSERT INTO Categorias (Nombre, TipoOperacionId, UsuarioId)
                                         Values (@Nombre, @TipoOperacionId, @UsuarioId);
 
-                                        SELECT SCOPE_IDENTITY();
-                                        ", categoria);
-
+                                        SELECT SCOPE_IDENTITY();";
+            var id = await connection.QuerySingleAsync<int>(query,categoria);
             categoria.Id = id;
         }
 

@@ -1,11 +1,11 @@
 ﻿namespace MManejoPresupuesto.Servicios
 {
 
-    public interface IServiciosUsuarios
+    public interface IServicioUsuarios
     {
         int ObtenerUsuarioId();
     }
-    public class ServicioUsuarios : IServiciosUsuarios
+    public class ServicioUsuarios : IServicioUsuarios
     {
         public int ObtenerUsuarioId()
         {

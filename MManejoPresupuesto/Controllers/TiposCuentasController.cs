@@ -9,10 +9,10 @@ namespace MManejoPresupuesto.Controllers
     public class TiposCuentasController : Controller
     {
         private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
-        private readonly IServiciosUsuarios serviciosUsuarios;
+        private readonly IServicioUsuarios serviciosUsuarios;
 
 
-        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas, IServiciosUsuarios serviciosUsuarios)
+        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas, IServicioUsuarios serviciosUsuarios)
         {
             this.repositorioTiposCuentas = repositorioTiposCuentas;
             this.serviciosUsuarios = serviciosUsuarios;

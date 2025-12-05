@@ -1,11 +1,11 @@
-﻿
+﻿@using MManejoPresupuesto.Models;
 @model TipoCuenta
 
 @{
     ViewData["Title"] = "Crear Tipo Cuenta";
 }
     
-<h1>Crear Tipo de Cuenta</h1>
+<h1>@ViewData["Title"]</h1>
 <h5>Definición de Tipo Cuenta </h5>
 
 <form asp-controller="TiposCuentas" asp-action="Crear">
