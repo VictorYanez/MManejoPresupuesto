@@ -11,6 +11,7 @@ namespace MManejoPresupuesto.Models
         public string Nombre { get; set; }
         public int UsuarioId { get; set; }
         public int Orden { get; set; }
+        [Display(Name = "Tipo de Operación")]
         public TipoOperacion TipoOperacionId { get; set; }
     }
 }
