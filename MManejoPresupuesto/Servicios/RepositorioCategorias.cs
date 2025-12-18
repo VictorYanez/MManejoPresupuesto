@@ -9,6 +9,7 @@ namespace MManejoPresupuesto.Servicios
     {
         Task Crear(Categoria categoria);
         Task<IEnumerable<Categoria>> Obtener(int usuarioId);
+        Task<IEnumerable<Categoria>> Obtener(int usuarioId, TipoOperacion tipoOperacionId);
         Task<Categoria> ObtenerPorId(int id, int usuarioId);
         Task Actualizar(Categoria categoria);
         Task Borrar(int id);
@@ -34,6 +35,7 @@ namespace MManejoPresupuesto.Servicios
             categoria.Id = id;
         }
 
+        // Obtener todas las categorías de un usuario
         public async Task<IEnumerable<Categoria>> Obtener(int usuarioId)
         {
             using var connection = new SqlConnection(connectionString);
@@ -41,6 +43,17 @@ namespace MManejoPresupuesto.Servicios
                                         WHERE UsuarioId = @UsuarioId 
                                         ORDER BY Nombre;";
             return await connection.QueryAsync<Categoria>(query, new { usuarioId });
+        }
+
+        // Obtener categorías de un usuario por tipo de operación
+        public async Task<IEnumerable<Categoria>> Obtener(int usuarioId, TipoOperacion tipoOperacionId)
+        {
+            using var connection = new SqlConnection(connectionString);
+            var query = @"SELECT *  FROM Categorias
+                                    WHERE UsuarioId = @UsuarioId 
+                                    AND TipoOperacionId = @TipoOperacionId
+                                    ORDER BY Nombre;";
+            return await connection.QueryAsync<Categoria>(query, new { usuarioId, tipoOperacionId });
         }
 
         public async Task<Categoria> ObtenerPorId(int id, int usuarioId)
