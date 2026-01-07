@@ -20,21 +20,23 @@
     <!-- Definición de Cuentas  -->
     <div class="mb-3">
         <label asp-for="CuentaId" class="form-label"></label>
-        <Select asp-for="CuentaId" asp-items="Model.Cuentas" class="form-control" />
+        <Select asp-for="CuentaId" asp-items="Model.Cuentas" class="form-select">
+        </Select>
         <span asp-validation-for="CuentaId" class="text-danger"></span>
     </div>
 
     <!-- Definición de Tipo Operación   -->
     <div class="mb-3">
         <label asp-for="TipoOperacionId" class="form-label"></label>
-        <Select asp-for="TipoOperacionId" asp-items="Html.GetEnumSelectList<TipoOperacion>()" class="form-control" />
+        <Select asp-for="TipoOperacionId" asp-items="Html.GetEnumSelectList<TipoOperacion>()" class="form-select">
+        </Select>
         <span asp-validation-for="TipoOperacionId" class="text-danger"></span>
     </div>
 
     <!-- Definición de Categorias  -->
     <div class="mb-3">
         <label asp-for="CategoriaId" class="form-label"></label>
-        <Select asp-for="CategoriaId"  class="form-control" />
+        <select asp-for="CategoriaId" asp-items="Model.Categorias" class="form-select"></select>
         <span asp-validation-for="CategoriaId" class="text-danger"></span>
     </div>
 
@@ -60,21 +62,30 @@
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
 
-<script>
-    $(document).ready(function() {
-        // Cargar categorías al cambiar el tipo de operación
-        $('#TipoOperacionId').change(async function() {
-            const valorSeleccionado = $(this).val();
-                    const respuesta = await fetch(``, {
-                          method: `POST`,
-                          body : valorSeleccionado,
-                            headers: {
-                                'Content-Type': 'application/json'
-                                    }
-                        });
-                    const json = await respuesta.json();
-                                
+    <script>
 
-           
+        const urlObtenerCategorias = '@Url.Action("ObtenerCategorias")';
+
+        // Función para cargar tablas dependientes
+        $(function(){
+            $('#TipoOperacionId').change(async function(){
+                const valorSeleccionado = $(this).val();
+
+                const respusta = await fetch(urlObtenerCategorias,{
+                    method: 'POST',
+                    body: valorSeleccionado,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const json = await respusta.json();
+                const opciones =
+                    json.map(categoria => `<option value="${categoria.value}>${categoria.text}</option>`);
+                    $('#CategoriaPadreId').html(opciones);
+
+                })
+            });
+
+    </script>
 
 }

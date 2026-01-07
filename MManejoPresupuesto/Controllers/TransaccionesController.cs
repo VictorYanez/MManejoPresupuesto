@@ -27,6 +27,7 @@ namespace MManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var modelo = new TransaccionCreacionViewModel();
             modelo.Cuentas = await ObtenerCuentas(usuarioId);
+            modelo.Categorias = await ObtenerCategorias(usuarioId, modelo.TipoOperacionId);
             return View(modelo);
 
         }
@@ -45,13 +46,13 @@ namespace MManejoPresupuesto.Controllers
             return categorias.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
         }
 
-
         [HttpPost]
         public async Task<IActionResult> ObtenerCategorias([FromForm] TipoOperacion tipoOperacion) 
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
-            var cuentas = await repositorioCuentas.Buscar(usuarioId);
-            return Json(cuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString())));
+            var categorias = await ObtenerCategorias(usuarioId, tipoOperacion);
+            return Ok(categorias);
+
         }
 
         public IActionResult Index()
