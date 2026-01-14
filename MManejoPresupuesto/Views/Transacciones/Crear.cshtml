@@ -8,6 +8,8 @@
 <h5>Una transacción te permite especificar ingresos y gastos en particular </h5>
 
 <form asp-action="Crear"> 
+        @Html.AntiForgeryToken()
+
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
      
     <!-- Definición de Fecha Transacción  -->
@@ -50,7 +52,7 @@
     <!-- Definición de Nota  -->
     <div class="mb-3">
         <label asp-for="Nota" class="form-label"></label>
-        <textarea asp-for="Nota" class="form-control" />
+        <textarea asp-for="Nota" class="form-control"></textarea>
         <span asp-validation-for="Nota" class="text-danger"></span>
     </div>
 
@@ -63,29 +65,42 @@
 <partial name="_ValidationScriptsPartial" />
 
     <script>
+        const urlObtenerCategorias = '@Url.Action("ObtenerCategorias", "Transacciones")';
 
-        const urlObtenerCategorias = '@Url.Action("ObtenerCategorias")';
+        $(function () {
+            $('#TipoOperacionId').on('change', async function () {
 
-        // Función para cargar tablas dependientes
-        $(function(){
-            $('#TipoOperacionId').change(async function(){
-                const valorSeleccionado = $(this).val();
+                const tipoOperacion = parseInt(this.value);
 
-                const respusta = await fetch(urlObtenerCategorias,{
+                // Try to read antiforgery token from the form if present
+                const token = $('input[name="__RequestVerificationToken"]').val() || '';
+
+                const response = await fetch(urlObtenerCategorias, {
                     method: 'POST',
-                    body: valorSeleccionado,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify({
+                        tipoOperacionId: tipoOperacion
+                    })
                 });
-                const json = await respusta.json();
-                const opciones =
-                    json.map(categoria => `<option value="${categoria.value}>${categoria.text}</option>`);
-                    $('#CategoriaPadreId').html(opciones);
 
-                })
+                if (!response.ok) {
+                    console.error('Error fetching categorias', response.status);
+                    return;
+                }
+
+                const categorias = await response.json();
+
+                const options = categorias.map(c =>
+                    `<option value="${c.value}">${c.text}</option>`
+                ).join('');
+
+                $('#CategoriaId').html(options);
             });
-
+        });
     </script>
+
 
 }

@@ -8,7 +8,13 @@ namespace MManejoPresupuesto.Servicios
     public interface IRepositorioTransacciones
     {
         Task Crear(Transaccion transaccion);
+
+
+        Task<Transaccion> ObtenerPorId(int id, int usuarioId);
         Task<IEnumerable<Transaccion>> ObtenerPorUsuarioId(ParametroObtenerTransaccionesPorUsuario modelo);
+
+
+
     }
     public class RepositorioTransacciones : IRepositorioTransacciones
     {
@@ -44,6 +50,19 @@ namespace MManejoPresupuesto.Servicios
             return cuentas.Select(c => new SelectListItem(c.Nombre, c.Id.ToString()));
         }
 
+        public async Task<Transaccion> ObtenerPorId(int id, int usuarioId)
+        {
+            using var connection = new SqlConnection(connectionString);
+            var query = @"SELECT Transacciones.*, cat.TipoOperacionId
+                FROM Transacciones
+                INNER JOIN Categorias cat
+                ON cat.Id = Transacciones.CategoriaId
+                WHERE Transacciones.Id = @Id 
+                AND Transacciones.UsuarioId = @UsuarioId";
+            var transacciones = await connection.QueryFirstOrDefaultAsync<Transaccion>(query,
+                new { id, usuarioId });
+            return transacciones;
+        }
         public async Task<IEnumerable<Transaccion>> ObtenerPorUsuarioId(
             ParametroObtenerTransaccionesPorUsuario modelo)
         {
